@@ -18,6 +18,11 @@ image = Image.open('adZoom.jpg')
 # Crop the time
 image = image.crop((1850, 1100, 2800, 1800))
 
+# Scale the image
+width, height = image.size
+newsize = (int(width/4), int(height/4))
+image = image.resize(newsize)
+
 # Convert to greyscale
 image = image.convert('L')
 
