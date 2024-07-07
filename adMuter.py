@@ -1,6 +1,6 @@
-import pytesseract
 from PIL import Image
 from PIL import ImageFilter
+import tesserocr
 import sys
 
 # Open the image file
@@ -24,18 +24,18 @@ newsize = (int(width/4), int(height/4))
 image = image.resize(newsize)
 
 # Convert to greyscale
-image = image.convert('L')
+# image = image.convert('L')
 
 # image = image.filter(ImageFilter.SHARPEN);
-image = image.filter(ImageFilter.MaxFilter(7))
-image = image.filter(ImageFilter.MinFilter(7))
+# image = image.filter(ImageFilter.MaxFilter(7))
+# image = image.filter(ImageFilter.MinFilter(7))
 # image = image.filter(ImageFilter.SHARPEN);
 
-image.save('bw.png')
-# image.show()
+# image.save('bw.png')
 
-# Perform OCR using PyTesseract
-text = pytesseract.image_to_string(image)
+api = tesserocr.PyTessBaseAPI()
+api.SetImage(image)
+text = api.GetUTF8Text()
 
 # Print the extracted text
 print('"'+text+'"')
